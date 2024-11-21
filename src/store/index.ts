@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import favoriteMovieReducer from './reducers/favoriteMovies';
+import watchLaterReducer from './reducers/watchLater';
 
 const store = configureStore({
     reducer: {
         favorite_movies: favoriteMovieReducer,
+        watch_later: watchLaterReducer,
     }
 });
 
