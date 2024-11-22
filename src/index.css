@@ -7,6 +7,11 @@ h1,h2,h3,h4,h5,h6,p,article,li,a,span, button, input{
     font-style: normal;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+}
+
 input {
     font-size: 16px;
 }

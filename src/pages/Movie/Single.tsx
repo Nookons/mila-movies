@@ -7,7 +7,7 @@ import Text from "antd/es/typography/Text";
 import Title from "antd/es/typography/Title";
 import Trailer from "./Trailer";
 import Button from "antd/es/button";
-import {addFavoriteToBase, removeFavoriteToBase} from "../../utils/Movie";
+import {addFavoriteToBase, addWatchToBase, removeFavoriteToBase, removeWatchToBase} from "../../utils/Movie";
 import {useAppSelector} from "../../hooks/storeHooks";
 
 const Single = () => {
@@ -15,10 +15,12 @@ const Single = () => {
     const movie_id = searchParams.get('id');
 
     const {favorite_movie} = useAppSelector(state => state.favorite_movies)
+    const {watch_later} = useAppSelector(state => state.watch_later)
 
     const [current_movie, setCurrent_movie] = useState<IMovieFull | null>(null);
 
     const [isFavy, setIsFavy] = useState<boolean>(false);
+    const [isWatch, setIsWatch] = useState<boolean>(false);
 
     useEffect(() => {
         if (movie_id) {
@@ -39,10 +41,12 @@ const Single = () => {
 
     useEffect(() => {
         if (current_movie) {
-            const isFavy = favorite_movie.some(item => item.id === current_movie.id);
-            setIsFavy(isFavy);
+            const isF = favorite_movie.some(item => item.id === current_movie.id);
+            const isW = watch_later.some(item => item.id === current_movie.id);
+            setIsFavy(isF);
+            setIsWatch(isW);
         }
-    }, [favorite_movie, current_movie]);
+    }, [watch_later, favorite_movie, current_movie]);
 
 
     if (!current_movie) {
@@ -75,6 +79,15 @@ const Single = () => {
 
     const removeFavoriteHandle = async () => {
         try {
+            removeFavoriteToBase(current_movie.id)
+            message.success("Successfully removed");
+        } catch (err) {
+            err && message.error(err.toString())
+        }
+    }
+
+    const addToWatchHandle = () => {
+        try {
             const data: IMovie = {
                 adult: current_movie.adult,
                 backdrop_path: current_movie.backdrop_path,
@@ -90,7 +103,16 @@ const Single = () => {
                 vote_average: current_movie.vote_average,
                 vote_count: current_movie.vote_count,
             }
-            removeFavoriteToBase(data)
+            addWatchToBase(data)
+            message.success("Successfully saved");
+        } catch (err) {
+            err && message.error(err.toString())
+        }
+    }
+
+    const removeWatchHandle = async () => {
+        try {
+            removeWatchToBase(current_movie.id)
             message.success("Successfully removed");
         } catch (err) {
             err && message.error(err.toString())
@@ -98,16 +120,18 @@ const Single = () => {
     }
 
     return (
-        <Row style={{marginTop: 14}} gutter={[16, 16]}>
+        <Row style={{margin: "14px 0", padding: 14}} gutter={[16, 16]}>
             <Col span={24}>
-                {isFavy
-                    ? <Space>
-                        <Button onClick={() => removeFavoriteHandle()}>💩 Таңдаулыдан алып тастаңыз</Button>
-                    </Space>
-                    : <Space>
-                        <Button onClick={() => addToFavoriteHandle()}>❤️‍🔥 Таңдаулыға қосу</Button>
-                    </Space>
-                }
+                <Space>
+                    {isFavy
+                        ? <Button onClick={() => removeFavoriteHandle()}>💩 Remove from favy</Button>
+                        : <Button onClick={() => addToFavoriteHandle()}>❤️‍🔥 Add to favy</Button>
+                    }
+                    {isWatch
+                        ? <Button onClick={() => removeWatchHandle()}>💩 Remove watch later</Button>
+                        : <Button onClick={() => addToWatchHandle()}>❤️‍🔥 Add to watch later</Button>
+                    }
+                </Space>
             </Col>
             <Col span={24}>
                 <img style={{maxWidth: "100%"}} src={`https://image.tmdb.org/t/p/w500${current_movie.poster_path}`}/>

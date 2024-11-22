@@ -1,23 +1,34 @@
 import React from 'react';
-import FavoriteDisplay from "./Favorite/FavoriteDisplay";
-import PopularDisplay from "./Popular/PopularDisplay";
 import SearchMovie from "./Search/SearchMovie";
-import MoviesCarousel from "./MoviesCarousel";
 import {useAppSelector} from "../../hooks/storeHooks";
+import Button from "antd/es/button";
+import {Space} from "antd";
+import MoviesSlider from "./MovieSlider/MoviesSlider";
+import PopularDisplay from "./Popular/PopularDisplay";
 
 const Home = () => {
-    const {favorite_movie, loading, error} = useAppSelector(state => state.favorite_movies)
+    const {watch_later, loading, error} = useAppSelector(state => state.watch_later)
+    const {favorite_movie} = useAppSelector(state => state.favorite_movies)
 
     return (
-        <div>
-            <MoviesCarousel
-                array={favorite_movie}
+        <div style={{padding: 14}}>
+            <Space>
+                <Button>Favy</Button>
+                <Button>Watch later</Button>
+            </Space>
+            <MoviesSlider
+                array={watch_later}
                 loading={loading}
                 error={error}
                 title={"Соңғы сүйікті ❤️‍🔥"}
             />
-            <SearchMovie />
-            <PopularDisplay />
+            <MoviesSlider
+                loading={loading}
+                array={favorite_movie}
+                title={"Соңғы сүйікті ❤️‍🔥"}
+            />
+            <SearchMovie/>
+            <PopularDisplay/>
         </div>
     );
 };

@@ -9,7 +9,7 @@ import {addToFavorite} from "../../../store/reducers/favoriteMovies";
 import {db} from "../../../firebase";
 import {deleteDoc, doc, setDoc } from "firebase/firestore";
 import {PlusCircleOutlined} from "@ant-design/icons";
-import {addFavoriteToBase, removeFavoriteToBase} from "../../../utils/Movie";
+import {addFavoriteToBase, addWatchToBase, removeFavoriteToBase, removeWatchToBase} from "../../../utils/Movie";
 
 const PopularDisplay = () => {
     const navigate = useNavigate();
@@ -18,6 +18,7 @@ const PopularDisplay = () => {
     const [movies_data, setMovies_data] = useState<IMovieResponse | null>(null);
 
     const {favorite_movie} = useAppSelector(state => state.favorite_movies)
+    const {watch_later} = useAppSelector(state => state.watch_later)
 
     useEffect(() => {
         const options = {
@@ -50,7 +51,26 @@ const PopularDisplay = () => {
 
     const removeFavoriteHandle = async (movie: IMovie) => {
         try {
-            removeFavoriteToBase(movie)
+            const id = movie.id;
+            removeFavoriteToBase(id)
+            message.success("Successfully removed");
+        } catch (err) {
+            err && message.error(err.toString())
+        }
+    }
+    const addToWatchHandle = (movie: IMovie) => {
+        try {
+            addWatchToBase(movie)
+            message.success("Successfully saved");
+        } catch (err) {
+            err && message.error(err.toString())
+        }
+    }
+
+    const removeWatchHandle = async (movie: IMovie) => {
+        try {
+            const id = movie.id;
+            removeWatchToBase(id)
             message.success("Successfully removed");
         } catch (err) {
             err && message.error(err.toString())
@@ -62,6 +82,8 @@ const PopularDisplay = () => {
             <Row gutter={[16, 16]}>
                 {movies_data?.results.map((movie, index) => {
                     const isFavy = favorite_movie.some(item => item.id === movie.id);
+                    const isWatchLater = watch_later.some(item => item.id === movie.id);
+
                     return (
                         <Col
                             xs={12}      // На очень маленьких экранах (мобильных)
@@ -93,6 +115,27 @@ const PopularDisplay = () => {
                                     }}
                                     onClick={() => addToFavoriteHandle(movie)}>
                                     ❤️‍🔥
+                                </Button>
+
+                            }
+                            {isWatchLater
+                                ? <Button
+                                    style={{
+                                        position: "absolute",
+                                        top: 46,
+                                        right: 14
+                                    }}
+                                    onClick={() => removeWatchHandle(movie)}>
+                                    ❌
+                                </Button>
+                                : <Button
+                                    style={{
+                                        position: "absolute",
+                                        top: 46,
+                                        right: 14
+                                    }}
+                                    onClick={() => addToWatchHandle(movie)}>
+                                    🕚
                                 </Button>
 
                             }
