@@ -2,13 +2,27 @@ import React, {useEffect, useState} from 'react';
 import {getSearchParamsForLocation} from "react-router-dom/dist/dom";
 import {useSearchParams} from "react-router-dom";
 import {IMovie, IMovieFull} from "../../type/Movie";
-import {Col, Descriptions, Divider, message, Row, Skeleton, Space, Tag} from "antd";
+import {Col, Descriptions, Divider, FloatButton, message, Row, Skeleton, Space, Tag} from "antd";
 import Text from "antd/es/typography/Text";
 import Title from "antd/es/typography/Title";
 import Trailer from "./Trailer";
 import Button from "antd/es/button";
-import {addFavoriteToBase, addWatchToBase, removeFavoriteToBase, removeWatchToBase} from "../../utils/Movie";
+import {
+    addFavoriteToBase,
+    addWatchedToBase,
+    addWatchToBase,
+    removeFavoriteToBase, removeWatchedToBase,
+    removeWatchToBase
+} from "../../utils/Movie";
 import {useAppSelector} from "../../hooks/storeHooks";
+import {
+    DislikeOutlined,
+    EyeInvisibleOutlined, EyeOutlined,
+    LikeOutlined,
+    MinusOutlined,
+    PlusOutlined,
+    UpOutlined
+} from "@ant-design/icons";
 
 const Single = () => {
     const [searchParams] = useSearchParams();
@@ -16,11 +30,13 @@ const Single = () => {
 
     const {favorite_movie} = useAppSelector(state => state.favorite_movies)
     const {watch_later} = useAppSelector(state => state.watch_later)
+    const {watched} = useAppSelector(state => state.watched)
 
     const [current_movie, setCurrent_movie] = useState<IMovieFull | null>(null);
 
-    const [isFavy, setIsFavy] = useState<boolean>(false);
-    const [isWatch, setIsWatch] = useState<boolean>(false);
+    const [isF, setIsF] = useState<boolean>(false);
+    const [isWL, setIsWL] = useState<boolean>(false);
+    const [isW, setIsW] = useState<boolean>(false);
 
     useEffect(() => {
         if (movie_id) {
@@ -42,99 +58,75 @@ const Single = () => {
     useEffect(() => {
         if (current_movie) {
             const isF = favorite_movie.some(item => item.id === current_movie.id);
-            const isW = watch_later.some(item => item.id === current_movie.id);
-            setIsFavy(isF);
-            setIsWatch(isW);
+            const isWL = watch_later.some(item => item.id === current_movie.id);
+            const isW = watched.some(item => item.id === current_movie.id);
+            setIsF(isF);
+            setIsWL(isWL);
+            setIsW(isW);
         }
-    }, [watch_later, favorite_movie, current_movie]);
+    }, [watched, watch_later, favorite_movie, current_movie]);
 
 
     if (!current_movie) {
         return <Skeleton/>
     }
 
-    const addToFavoriteHandle = () => {
-        try {
-            const data: IMovie = {
-                adult: current_movie.adult,
-                backdrop_path: current_movie.backdrop_path,
-                id: current_movie.id,
-                original_language: current_movie.original_language,
-                original_title: current_movie.original_title,
-                overview: current_movie.overview,
-                popularity: current_movie.popularity,
-                poster_path: current_movie.poster_path,
-                release_date: current_movie.release_date,
-                title: current_movie.title,
-                video: current_movie.video,
-                vote_average: current_movie.vote_average,
-                vote_count: current_movie.vote_count,
-            }
-            addFavoriteToBase(data)
-            message.success("Successfully saved");
-        } catch (err) {
-            err && message.error(err.toString())
-        }
-    }
 
-    const removeFavoriteHandle = async () => {
-        try {
-            removeFavoriteToBase(current_movie.id)
-            message.success("Successfully removed");
-        } catch (err) {
-            err && message.error(err.toString())
-        }
-    }
-
-    const addToWatchHandle = () => {
-        try {
-            const data: IMovie = {
-                adult: current_movie.adult,
-                backdrop_path: current_movie.backdrop_path,
-                id: current_movie.id,
-                original_language: current_movie.original_language,
-                original_title: current_movie.original_title,
-                overview: current_movie.overview,
-                popularity: current_movie.popularity,
-                poster_path: current_movie.poster_path,
-                release_date: current_movie.release_date,
-                title: current_movie.title,
-                video: current_movie.video,
-                vote_average: current_movie.vote_average,
-                vote_count: current_movie.vote_count,
-            }
-            addWatchToBase(data)
-            message.success("Successfully saved");
-        } catch (err) {
-            err && message.error(err.toString())
-        }
-    }
-
-    const removeWatchHandle = async () => {
-        try {
-            removeWatchToBase(current_movie.id)
-            message.success("Successfully removed");
-        } catch (err) {
-            err && message.error(err.toString())
+    const getClickType = async (type: string, movie: IMovie) => {
+        switch (type) {
+            case "favorite":
+                await addFavoriteToBase(movie)
+                break;
+            case "unfavorite":
+                await removeFavoriteToBase(movie.id)
+                break;
+            case "watch_later":
+                await addWatchToBase(movie)
+                break;
+            case "unwatch_later":
+                await removeWatchToBase(movie.id)
+                break;
+            case "watched":
+                await addWatchedToBase(movie)
+                break;
+            case "unwatched":
+                await removeWatchedToBase(movie.id)
+                break;
         }
     }
 
     return (
         <Row style={{margin: "14px 0", padding: 14}} gutter={[16, 16]}>
             <Col span={24}>
-                <Space>
-                    {isFavy
-                        ? <Button onClick={() => removeFavoriteHandle()}>💩 Remove from favy</Button>
-                        : <Button onClick={() => addToFavoriteHandle()}>❤️‍🔥 Add to favy</Button>
+                <img style={{maxWidth: "100%", position: "relative"}}
+                     src={`https://image.tmdb.org/t/p/w500${current_movie.poster_path}`}/>
+                <FloatButton.Group
+                    key={"top"}
+                    trigger="click"
+                    placement={"top"}
+                    style={{
+                        position: "absolute",
+                    }}
+                    icon={<UpOutlined/>}
+                >
+                    <FloatButton
+                        icon={isF
+                            ? <DislikeOutlined onClick={() => getClickType("unfavorite", current_movie)}/>
+                            : <LikeOutlined onClick={() => getClickType("favorite", current_movie)}/>
+                        }/>
+                    {!isW &&
+                        <FloatButton
+                            icon={isWL
+                                ? <MinusOutlined onClick={() => getClickType("unwatch_later", current_movie)}/>
+                                : <PlusOutlined onClick={() => getClickType("watch_later", current_movie)}/>
+                            }/>
                     }
-                    {isWatch
-                        ? <Button onClick={() => removeWatchHandle()}>💩 Remove watch later</Button>
-                        : <Button onClick={() => addToWatchHandle()}>❤️‍🔥 Add to watch later</Button>
-                    }
-                </Space>
-            </Col>
-            <Col span={24}>
-                <img style={{maxWidth: "100%"}} src={`https://image.tmdb.org/t/p/w500${current_movie.poster_path}`}/>
+                    <FloatButton
+                        icon={isW
+                            ? <EyeInvisibleOutlined onClick={() => getClickType("unwatched", current_movie)}/>
+                            : <EyeOutlined onClick={() => getClickType("watched", current_movie)}/>
+                        }/>
+                </FloatButton.Group>
             </Col>
             <Col span={24}>
                 <Title level={2}>{current_movie.title}</Title>

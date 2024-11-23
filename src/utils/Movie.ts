@@ -22,3 +22,14 @@ export const addWatchToBase =  async (movie: IMovie) => {
 export const removeWatchToBase =  async (id: number) => {
     await deleteDoc(doc(db, "watch_later", id.toString()));
 }
+
+export const addWatchedToBase =  async (movie: IMovie) => {
+    await deleteDoc(doc(db, "watch_later", movie.id.toString()));
+    await setDoc(doc(db, "watched", movie.id.toString()), {
+        ...movie
+    });
+}
+
+export const removeWatchedToBase =  async (id: number) => {
+    await deleteDoc(doc(db, "watched", id.toString()));
+}

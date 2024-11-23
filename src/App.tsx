@@ -5,6 +5,7 @@ import Footer from "./components/Footer/Footer";
 import {subscribeToFavoriteMovies} from "./store/reducers/favoriteMovies";
 import {useAppDispatch} from "./hooks/storeHooks";
 import {subscribeToWatchLater} from "./store/reducers/watchLater";
+import {subscribeToWatched} from "./store/reducers/watched";
 
 const App = () => {
     const dispatch = useAppDispatch();
@@ -12,6 +13,7 @@ const App = () => {
     useEffect(() => {
         dispatch(subscribeToFavoriteMovies());
         dispatch(subscribeToWatchLater());
+        dispatch(subscribeToWatched());
     }, [dispatch]);
 
     return (

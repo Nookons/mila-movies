@@ -1,36 +1,41 @@
 import React from 'react';
 import SearchMovie from "./Search/SearchMovie";
 import {useAppSelector} from "../../hooks/storeHooks";
-import Button from "antd/es/button";
-import {Space} from "antd";
+import {Avatar, Badge, Flex, Segmented, Space, Tabs, TabsProps} from "antd";
 import MoviesSlider from "./MovieSlider/MoviesSlider";
 import PopularDisplay from "./Popular/PopularDisplay";
+import {useNavigate} from "react-router-dom";
+import {EyeOutlined, HomeOutlined, LikeOutlined, PlusOutlined, UserOutlined} from "@ant-design/icons";
+import Favorite from "../Favorite/Favorite";
+import HomeChild from "./HomeChild";
+import WatchLater from "../WatchLater/WatchLater";
 
 const Home = () => {
-    const {watch_later, loading, error} = useAppSelector(state => state.watch_later)
-    const {favorite_movie} = useAppSelector(state => state.favorite_movies)
+    const {watch_later} = useAppSelector(state => state.watch_later)
 
-    return (
-        <div style={{padding: 14}}>
-            <Space>
-                <Button>Favy</Button>
-                <Button>Watch later</Button>
-            </Space>
-            <MoviesSlider
-                array={watch_later}
-                loading={loading}
-                error={error}
-                title={"Соңғы сүйікті ❤️‍🔥"}
-            />
-            <MoviesSlider
-                loading={loading}
-                array={favorite_movie}
-                title={"Соңғы сүйікті ❤️‍🔥"}
-            />
-            <SearchMovie/>
-            <PopularDisplay/>
-        </div>
-    );
+    const onChange = (key: string) => {
+        console.log(key);
+    };
+
+    const items: TabsProps['items'] = [
+        {
+            key: '1',
+            label: <span>Home</span>,
+            children: <HomeChild />,
+        },
+        {
+            key: '2',
+            label: <span>Favorite</span>,
+            children: <Favorite />,
+        },
+        {
+            key: '3',
+            label: <Badge color={"#ffabab"} count={watch_later.length} overflowCount={100}><span>Watch later</span></Badge>,
+            children: <WatchLater />,
+        },
+    ];
+
+    return <Tabs style={{margin: 14}} defaultActiveKey="1" items={items} onChange={onChange} />
 };
 
 export default Home;

@@ -5,11 +5,25 @@ import {useNavigate} from "react-router-dom";
 import {SINGLE_MOVIE} from "../../../utils/const";
 import Button from "antd/es/button";
 import {useAppDispatch, useAppSelector} from "../../../hooks/storeHooks";
-import {addToFavorite} from "../../../store/reducers/favoriteMovies";
-import {db} from "../../../firebase";
-import {deleteDoc, doc, setDoc } from "firebase/firestore";
-import {PlusCircleOutlined} from "@ant-design/icons";
-import {addFavoriteToBase, addWatchToBase, removeFavoriteToBase, removeWatchToBase} from "../../../utils/Movie";
+import {
+    addFavoriteToBase,
+    addWatchedToBase,
+    addWatchToBase,
+    removeFavoriteToBase, removeWatchedToBase,
+    removeWatchToBase
+} from "../../../utils/Movie";
+
+import {Flex, FloatButton} from 'antd';
+import {
+    CommentOutlined,
+    DislikeOutlined,
+    DownOutlined, EyeInvisibleOutlined, EyeOutlined,
+    LeftOutlined,
+    LikeOutlined, MinusCircleOutlined, MinusOutlined, PlusCircleOutlined, PlusOutlined,
+    RightOutlined,
+    UpOutlined
+} from "@ant-design/icons";
+
 
 const PopularDisplay = () => {
     const navigate = useNavigate();
@@ -19,6 +33,7 @@ const PopularDisplay = () => {
 
     const {favorite_movie} = useAppSelector(state => state.favorite_movies)
     const {watch_later} = useAppSelector(state => state.watch_later)
+    const {watched} = useAppSelector(state => state.watched)
 
     useEffect(() => {
         const options = {
@@ -40,40 +55,26 @@ const PopularDisplay = () => {
         });
     }, [page])
 
-    const addToFavoriteHandle = (movie: IMovie) => {
-        try {
-            addFavoriteToBase(movie)
-            message.success("Successfully saved");
-        } catch (err) {
-            err && message.error(err.toString())
-        }
-    }
-
-    const removeFavoriteHandle = async (movie: IMovie) => {
-        try {
-            const id = movie.id;
-            removeFavoriteToBase(id)
-            message.success("Successfully removed");
-        } catch (err) {
-            err && message.error(err.toString())
-        }
-    }
-    const addToWatchHandle = (movie: IMovie) => {
-        try {
-            addWatchToBase(movie)
-            message.success("Successfully saved");
-        } catch (err) {
-            err && message.error(err.toString())
-        }
-    }
-
-    const removeWatchHandle = async (movie: IMovie) => {
-        try {
-            const id = movie.id;
-            removeWatchToBase(id)
-            message.success("Successfully removed");
-        } catch (err) {
-            err && message.error(err.toString())
+    const getClickType = async (type: string, movie: IMovie) => {
+        switch (type) {
+            case "favorite":
+                await addFavoriteToBase(movie)
+                break;
+            case "unfavorite":
+                await removeFavoriteToBase(movie.id)
+                break;
+            case "watch_later":
+                await addWatchToBase(movie)
+                break;
+            case "unwatch_later":
+                await removeWatchToBase(movie.id)
+                break;
+            case "watched":
+                await addWatchedToBase(movie)
+                break;
+            case "unwatched":
+                await removeWatchedToBase(movie.id)
+                break;
         }
     }
 
@@ -81,8 +82,9 @@ const PopularDisplay = () => {
         <div>
             <Row gutter={[16, 16]}>
                 {movies_data?.results.map((movie, index) => {
-                    const isFavy = favorite_movie.some(item => item.id === movie.id);
-                    const isWatchLater = watch_later.some(item => item.id === movie.id);
+                    const isF = favorite_movie.some(item => item.id === movie.id);
+                    const isWL = watch_later.some(item => item.id === movie.id);
+                    const isW = watched.some(item => item.id === movie.id);
 
                     return (
                         <Col
@@ -94,51 +96,38 @@ const PopularDisplay = () => {
                             key={index}
                             style={{position: "relative"}}
                         >
-                            <img onClick={() => navigate(`${SINGLE_MOVIE}?id=${movie.id}`)} style={{maxWidth: "100%"}} src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                            <img onClick={() => navigate(`${SINGLE_MOVIE}?id=${movie.id}`)} style={{maxWidth: "100%"}}
+                                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                                  alt={movie.title}/>
-                            <article>{movie.title}</article>
-                            {isFavy
-                                ? <Button
-                                    style={{
-                                        position: "absolute",
-                                        top: 6,
-                                        right: 14
-                                    }}
-                                    onClick={() => removeFavoriteHandle(movie)}>
-                                    💩
-                                </Button>
-                                : <Button
-                                    style={{
-                                        position: "absolute",
-                                        top: 6,
-                                        right: 14
-                                    }}
-                                    onClick={() => addToFavoriteHandle(movie)}>
-                                    ❤️‍🔥
-                                </Button>
-
-                            }
-                            {isWatchLater
-                                ? <Button
-                                    style={{
-                                        position: "absolute",
-                                        top: 46,
-                                        right: 14
-                                    }}
-                                    onClick={() => removeWatchHandle(movie)}>
-                                    ❌
-                                </Button>
-                                : <Button
-                                    style={{
-                                        position: "absolute",
-                                        top: 46,
-                                        right: 14
-                                    }}
-                                    onClick={() => addToWatchHandle(movie)}>
-                                    🕚
-                                </Button>
-
-                            }
+                            <FloatButton.Group
+                                key={"top"}
+                                trigger="click"
+                                placement={"top"}
+                                style={{
+                                    position: "absolute",
+                                    right: 24,
+                                    bottom: 24
+                                }}
+                                icon={<UpOutlined  />}
+                            >
+                                <FloatButton
+                                    icon={isF
+                                        ? <DislikeOutlined onClick={() => getClickType("unfavorite", movie)} />
+                                        : <LikeOutlined onClick={() => getClickType("favorite", movie)} />
+                                }/>
+                                {!isW &&
+                                    <FloatButton
+                                        icon={isWL
+                                            ? <MinusOutlined onClick={() => getClickType("unwatch_later", movie)} />
+                                            : <PlusOutlined onClick={() => getClickType("watch_later", movie)} />
+                                        }/>
+                                }
+                                <FloatButton
+                                    icon={isW
+                                        ? <EyeInvisibleOutlined onClick={() => getClickType("unwatched", movie)} />
+                                        : <EyeOutlined onClick={() => getClickType("watched", movie)} />
+                                }/>
+                            </FloatButton.Group>
                         </Col>
                     )
                 })}

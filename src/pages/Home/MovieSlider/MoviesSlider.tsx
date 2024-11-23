@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Alert, Divider, Skeleton } from "antd";
+import {Alert, Col, Divider, Row, Skeleton} from "antd";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import {IMovie} from "../../../type/Movie";
@@ -14,25 +14,15 @@ interface FavoriteDisplayProps {
 
 const MoviesSlider: React.FC<FavoriteDisplayProps> = ({ array, loading, error, title }) => {
     const navigate = useNavigate();
-    const [reversed, setReversed] = useState<IMovie[]>([]);
     const sliderRef = useRef<any>(null);
 
     useEffect(() => {
-        if (array.length) {
-            setReversed([...array].reverse());
-        } else {
-            setReversed([]);
-        }
-    }, [array]);
-
-    useEffect(() => {
-        if (sliderRef.current && reversed.length) {
-            // Даем небольшую задержку перед инициализацией слайдера
+        if (sliderRef.current && array.length) {
             setTimeout(() => {
                 sliderRef.current.slickGoTo(0); // Инициализируем слайдер с первого слайда
             }, 100);
         }
-    }, [reversed]);
+    }, [array]);
 
     if (loading) {
         return <Skeleton />;
@@ -43,7 +33,7 @@ const MoviesSlider: React.FC<FavoriteDisplayProps> = ({ array, loading, error, t
     }
 
     if (!array.length) {
-        return <Alert style={{ margin: "14px 0" }} message={<span>Сізде әлі сүйікті фильмдер жоқ 😅</span>} type="info" closeText="Жабу" />;
+        return null;
     }
 
     const settings = {
@@ -84,22 +74,36 @@ const MoviesSlider: React.FC<FavoriteDisplayProps> = ({ array, loading, error, t
     };
 
     return (
-        <div className="slider-container">
+        <div style={{maxWidth: "100vw"}}>
             <Divider>{title}</Divider>
-            <Slider ref={sliderRef} {...settings}>
-                {reversed.slice(0, 24).map((movie, index) => (
-                    <div key={index} style={{
-                        padding: "14px",
-                        width: '100%',
-                        backgroundColor: "#000000",
-                    }}>
-                        <img onClick={() => navigate(`${SINGLE_MOVIE}?id=${movie.id}`)}
-                             style={{ maxWidth: "90%", marginRight: 14, borderRadius: 4 }}
-                             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                             alt={movie.title} />
-                    </div>
-                ))}
-            </Slider>
+            {array.length <= 4
+            ?
+                <Row gutter={[1, 1]}>
+                    {array.map((movie, index) => (
+                        <Col span={6}>
+                            <img onClick={() => navigate(`${SINGLE_MOVIE}?id=${movie.id}`)}
+                                 style={{maxWidth: "90%", marginRight: 14, borderRadius: 4}}
+                                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                                 alt={movie.title}/>
+                        </Col>
+                    ))}
+                </Row>
+                :
+                <Slider style={{overflowX: "clip"}} ref={sliderRef} {...settings}>
+                    {array.slice(0, 24).map((movie, index) => (
+                        <div key={index} style={{
+                            padding: "14px",
+                            width: '100%',
+                            backgroundColor: "#000000",
+                        }}>
+                            <img onClick={() => navigate(`${SINGLE_MOVIE}?id=${movie.id}`)}
+                                 style={{ maxWidth: "90%", marginRight: 14, borderRadius: 4 }}
+                                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                                 alt={movie.title} />
+                        </div>
+                    ))}
+                </Slider>
+            }
         </div>
     );
 };
