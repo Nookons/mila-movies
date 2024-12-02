@@ -1,9 +1,17 @@
 import Home from "./pages/Home/Home";
 import SignIn from "./pages/SignIn/SignIn";
-import {FAVORITE_MOVIES, HOME_ROUTE, SIGN_IN_ROUTE, SINGLE_MOVIE, WATCH_LATER_MOVIES} from "./utils/const";
+import {
+    FAVORITE_MOVIES,
+    HOME_ROUTE,
+    SIGN_IN_ROUTE,
+    SINGLE_MOVIE,
+    WATCH_LATER_MOVIES,
+    WATCHED_MOVIES
+} from "./utils/const";
 import Single from "./pages/Movie/Single";
 import Favorite from "./pages/Favorite/Favorite";
 import WatchLater from "./pages/WatchLater/WatchLater";
+import Watched from "./pages/Watched/Watched";
 
 
 interface Route {
@@ -35,5 +43,9 @@ export const publicRoutes: PublicRoutes = [
     {
         path: WATCH_LATER_MOVIES,
         Component: WatchLater,
+    },
+    {
+        path: WATCHED_MOVIES,
+        Component: Watched,
     },
 ];

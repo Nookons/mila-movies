@@ -40,6 +40,7 @@ const MoviesDisplay:FC<MoviesDisplayProps> = ({array, loading, error, title}) =>
             {array.map((movie, index) => {
                 return (
                     <Col
+                        key={index}
                         xs={6}
                         xl={4}
                     >

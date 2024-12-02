@@ -7,6 +7,7 @@ import {IMovie, IMovieResponse} from "../../../type/Movie";
 import {SINGLE_MOVIE} from "../../../utils/const";
 import {useNavigate} from "react-router-dom";
 import Text from "antd/es/typography/Text";
+import {TMBD_Options} from "../../../utils/TMBDOptions";
 
 const SearchMovie = () => {
     const navigate = useNavigate();
@@ -20,15 +21,8 @@ const SearchMovie = () => {
 
     const onSearch = async () => {
         showDrawer();
-        const options = {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNGM1MDM5NDk4N2I2ZTM1NzdlYzY3ZTIyNDBmZWQ3OSIsIm5iZiI6MTczMTkxNDgxNS43MjM4MzY0LCJzdWIiOiI2NGQ1NzkzN2QxMDBiNjAwYWRhMDAyNmQiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.nBArssuyWKerLl2OEN_2qM6ITzltfuHDHJjiYQ3ZlOY'
-            }
-        };
 
-        fetch(`https://api.themoviedb.org/3/search/movie?query=${search_value}&include_adult=false&language=ru-RU&page=1`, options)
+        fetch(`https://api.themoviedb.org/3/search/movie?query=${search_value}&include_adult=false&language=ru-RU&page=1`, TMBD_Options)
             .then(res => res.json())
             .then(res => {
                 setIsLoading(false);

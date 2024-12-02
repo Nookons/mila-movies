@@ -8,3 +8,4 @@ export const SINGLE_MOVIE = "/single-movie"
 
 export const FAVORITE_MOVIES = "/favorite-movies"
 export const WATCH_LATER_MOVIES = "/watch-later-movies"
+export const WATCHED_MOVIES = "/watched-movies"

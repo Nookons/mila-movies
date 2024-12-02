@@ -9,9 +9,11 @@ import {EyeOutlined, HomeOutlined, LikeOutlined, PlusOutlined, UserOutlined} fro
 import Favorite from "../Favorite/Favorite";
 import HomeChild from "./HomeChild";
 import WatchLater from "../WatchLater/WatchLater";
+import Watched from "../Watched/Watched";
 
 const Home = () => {
     const {watch_later} = useAppSelector(state => state.watch_later)
+    const {watched} = useAppSelector(state => state.watched)
 
     const onChange = (key: string) => {
         console.log(key);
@@ -32,6 +34,11 @@ const Home = () => {
             key: '3',
             label: <Badge color={"#ffabab"} count={watch_later.length} overflowCount={100}><span>Watch later</span></Badge>,
             children: <WatchLater />,
+        },
+        {
+            key: '4',
+            label: <span>Watched</span>,
+            children: <Watched />,
         },
     ];
 
