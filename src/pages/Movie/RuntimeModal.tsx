@@ -1,25 +1,24 @@
-import React, { FC, useEffect, useState } from 'react';
-import { DashboardOutlined } from "@ant-design/icons";
-import { Col, FloatButton, InputNumber, Modal, Row, Slider } from "antd";
-import { IMovieFull } from "../../type/Movie";
-import { doc, setDoc } from 'firebase/firestore';
-import { db } from "../../firebase";
-import { useMovieRuntime } from "../../hooks/useMovieRuntime";
+import React, {FC, useEffect, useState} from 'react';
+import {DashboardOutlined} from "@ant-design/icons";
+import {Col, FloatButton, InputNumber, message, Modal, Row, Slider} from "antd";
+import {IMovieFull} from "../../type/Movie";
+import {doc, setDoc} from 'firebase/firestore';
+import {db} from "../../firebase";
+import {useMovieRuntime} from "../../hooks/useMovieRuntime";
 
 interface RuntimeModalProps {
     current_movie: IMovieFull;
 }
 
-const RuntimeModal: FC<RuntimeModalProps> = ({ current_movie }) => {
+const RuntimeModal: FC<RuntimeModalProps> = ({current_movie}) => {
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
 
-    const { watched_time, loading, error } = useMovieRuntime(current_movie.id);
+    const {watched_time, loading, error} = useMovieRuntime(current_movie.id);
     const initialTime = watched_time ?? 1;
 
     const [inputValue, setInputValue] = useState<number>(initialTime);
 
-    // Обновляем inputValue, когда watched_time изменяется
     useEffect(() => {
         if (watched_time !== null) {
             setInputValue(watched_time);  // Обновляем значение, если watched_time есть
@@ -40,10 +39,9 @@ const RuntimeModal: FC<RuntimeModalProps> = ({ current_movie }) => {
             movie_id: current_movie.id
         });
 
-        setTimeout(() => {
-            setOpen(false);
-            setConfirmLoading(false);
-        }, 2000);
+        setOpen(false);
+        setConfirmLoading(false);
+        message.success("Movie runtime was updated successfully.!");
     };
 
     const handleCancel = () => {
@@ -83,11 +81,11 @@ const RuntimeModal: FC<RuntimeModalProps> = ({ current_movie }) => {
                     </Col>
                     <Col span={24}>
                         <InputNumber
-                            style={{ width: "100%" }}
+                            disabled
+                            style={{width: "100%"}}
                             min={1}
                             max={max}
                             value={inputValue} // Контролируемое состояние
-                            addonBefore={current_movie.title}
                             addonAfter="Minutes"
                             onChange={onInputNumberChange}
                         />
@@ -96,7 +94,7 @@ const RuntimeModal: FC<RuntimeModalProps> = ({ current_movie }) => {
             </Modal>
             <FloatButton
                 onClick={showModal}
-                icon={<DashboardOutlined />}
+                icon={<DashboardOutlined/>}
             />
         </>
     );

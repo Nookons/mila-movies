@@ -5,6 +5,7 @@ import {Col, Descriptions, Divider, FloatButton, message, Row, Skeleton, Space, 
 import Trailer from "./Trailer";
 import MovieDescriptions from './MovieDescriptions';
 import MovieButtons from "./MovieButtons";
+import SimilarMovies from "./SimilarMovies";
 
 const Single = () => {
     const [searchParams] = useSearchParams();
@@ -48,6 +49,9 @@ const Single = () => {
             </Col>
 
             <MovieDescriptions current_movie={current_movie} />
+
+           {/* <SimilarMovies movie_id={current_movie.id} />
+            <Divider dashed/>*/}
 
             <Col span={24}>
                 {movie_id && <Trailer movie_id={movie_id}/>}

@@ -8,7 +8,7 @@ import {SINGLE_MOVIE} from "../../../utils/const";
 interface FavoriteDisplayProps {
     array: IMovie[];
     loading: boolean;
-    error?: string;
+    error?: string | null;
     title?: string;
 }
 
