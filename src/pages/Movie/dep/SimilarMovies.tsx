@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import MoviesSlider from "../Home/MovieSlider/MoviesSlider";
+import MoviesSlider from "../../Home/MovieSlider/MoviesSlider";
 import {Skeleton} from "antd";
 
 interface SimilarMoviesProps {

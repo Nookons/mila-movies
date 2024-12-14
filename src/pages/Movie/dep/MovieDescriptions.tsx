@@ -1,18 +1,21 @@
 import React, { FC } from 'react';
 import Title from "antd/es/typography/Title";
 import Text from "antd/es/typography/Text";
-import { Col, Descriptions, Divider, Progress, Skeleton, Tag, Alert } from "antd";
-import { IMovieFull } from "../../type/Movie";
-import { useMovieRuntime } from "../../hooks/useMovieRuntime";
+import {Col, Descriptions, Divider, Progress, Skeleton, Tag, Alert, FloatButton} from "antd";
+import { IMovieFull } from "../../../type/Movie";
+import { useMovieRuntime } from "../../../hooks/useMovieRuntime";
+import MovieActors from "./MovieActors";
+import Button from "antd/es/button";
+import {UpCircleOutlined, YoutubeOutlined} from "@ant-design/icons";
 
 interface DescriptionProps {
     current_movie: IMovieFull;
 }
 
 const MovieDescriptions: FC<DescriptionProps> = ({ current_movie }) => {
+    const id = current_movie.id.toString()
     const { watched_time, loading, error } = useMovieRuntime(current_movie.id);
 
-    // Если watched_time равно null, устанавливаем его значение как 0
     const percentage = watched_time !== null ? (watched_time / current_movie.runtime) * 100 : 0;
     const roundedPercentage = parseFloat(percentage.toFixed(2)); // Преобразуем строку обратно в число
 
@@ -39,7 +42,18 @@ const MovieDescriptions: FC<DescriptionProps> = ({ current_movie }) => {
                     }
                 </>
             )}
-            <Title level={2}>{current_movie.title}</Title>
+            <Title level={2}>
+                {current_movie.title}
+                {current_movie.homepage && (
+                    <Button
+                        style={{marginLeft: 14}}
+                        onClick={() => window.location.href = current_movie.homepage}
+                        shape="circle"
+                    >
+                        <YoutubeOutlined />
+                    </Button>
+                )}
+            </Title>
             <Descriptions size="small" bordered={false}>
                 <Descriptions.Item span={3} label="Languages">
                     {current_movie.spoken_languages.map((el) => (
@@ -53,6 +67,11 @@ const MovieDescriptions: FC<DescriptionProps> = ({ current_movie }) => {
                                 {el.name}
                             </Tag>
                         ))}
+                    </div>
+                </Descriptions.Item>
+                <Descriptions.Item span={3} label="Actros">
+                    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                        <MovieActors movie_id={id} />
                     </div>
                 </Descriptions.Item>
                 <Descriptions.Item span={3} label="Genres">

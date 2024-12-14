@@ -9,16 +9,17 @@ import {
     UpOutlined
 } from "@ant-design/icons";
 import { FloatButton } from "antd";
-import { IMovieFull } from "../../type/Movie";
+import { IMovieFull } from "../../../type/Movie";
 import {
     addFavoriteToBase,
     addWatchedToBase,
     addWatchToBase,
     removeFavoriteToBase, removeWatchedToBase,
     removeWatchToBase
-} from "../../utils/Movie";
-import { useAppSelector } from "../../hooks/storeHooks";
+} from "../../../utils/Movie";
+import { useAppSelector } from "../../../hooks/storeHooks";
 import RuntimeModal from "./RuntimeModal";
+
 
 interface MovieButtonsProps {
     current_movie: IMovieFull;
@@ -28,12 +29,17 @@ const MovieButtons: FC<MovieButtonsProps> = ({ current_movie }) => {
     const { favorite_movie } = useAppSelector(state => state.favorite_movies);
     const { watch_later } = useAppSelector(state => state.watch_later);
     const { watched } = useAppSelector(state => state.watched);
+    const [open, setOpen] = useState(false);
 
     const [status, setStatus] = useState({
         isF: false,
         isWL: false,
         isW: false
     });
+
+    const showModal = () => {
+        setOpen(true); // Open the Drawer when the button is clicked
+    };
 
     useEffect(() => {
         if (current_movie) {
@@ -98,7 +104,12 @@ const MovieButtons: FC<MovieButtonsProps> = ({ current_movie }) => {
                 icon={getIconForButton("watched")}
                 onClick={() => getClickType(status.isW ? "unwatched" : "watched", current_movie.id)}
             />
-            <RuntimeModal current_movie={current_movie} />
+            <FloatButton
+                onClick={showModal}
+                icon={<DashboardOutlined />}
+                tooltip="Set Movie Runtime"
+            />
+            <RuntimeModal setOpen={setOpen} open={open} current_movie={current_movie} />
         </FloatButton.Group>
     );
 };

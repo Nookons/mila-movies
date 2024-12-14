@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import {IVideoDetails} from "../../type/Trailer";
+import {IVideoDetails} from "../../../type/Trailer";
 
 interface TrailerProps {
     movie_id: string;
