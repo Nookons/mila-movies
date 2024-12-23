@@ -1,7 +1,11 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import useMovieActors from "../../../hooks/useMovieActors";
 import {Alert, Avatar, Badge, Col, Descriptions, Progress, Rate, Row, Skeleton, Statistic, Tag, Tooltip} from "antd";
 import {IActor} from "../../../type/Actors";
+import {TMBD_Options} from "../../../utils/TMBDOptions";
+import Button from "antd/es/button";
+import {useNavigate} from "react-router-dom";
+import {SINGLE_ACTOR} from "../../../utils/const";
 
 interface MovieActorsProps {
     movie_id: string;
@@ -12,7 +16,11 @@ interface ActorToolTipProps {
 }
 
 const ActorToolTip: FC<ActorToolTipProps> = ({actor}) => {
+    const navigate = useNavigate();
     const baseImageUrl = 'https://www.themoviedb.org/t/p/w500';
+
+
+
 
     const profileImage = actor.profile_path
         ? `${baseImageUrl}${actor.profile_path}`
@@ -37,13 +45,19 @@ const ActorToolTip: FC<ActorToolTipProps> = ({actor}) => {
                     format={(percent) => `${percent?.toFixed(1)} Stars`}
                 />
             </Col>
+            <Col>
+                <Button
+                    onClick={() => navigate(`${SINGLE_ACTOR}?id=${actor.id}`)}
+                >
+                    Open
+                </Button>
+            </Col>
         </Row>
     );
 };
 
 const MovieActors: FC<MovieActorsProps> = ({movie_id}) => {
     const id = movie_id.toString();
-
     const {actors, loading, error} = useMovieActors(id)
 
     if (loading) {

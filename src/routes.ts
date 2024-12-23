@@ -3,7 +3,7 @@ import SignIn from "./pages/SignIn/SignIn";
 import {
     FAVORITE_MOVIES,
     HOME_ROUTE,
-    SIGN_IN_ROUTE,
+    SIGN_IN_ROUTE, SINGLE_ACTOR,
     SINGLE_MOVIE,
     WATCH_LATER_MOVIES,
     WATCHED_MOVIES
@@ -12,6 +12,7 @@ import Single from "./pages/Movie/Single";
 import Favorite from "./pages/Favorite/Favorite";
 import WatchLater from "./pages/WatchLater/WatchLater";
 import Watched from "./pages/Watched/Watched";
+import SingleActor from "./pages/Actor/SingleActor";
 
 
 interface Route {
@@ -47,5 +48,9 @@ export const publicRoutes: PublicRoutes = [
     {
         path: WATCHED_MOVIES,
         Component: Watched,
+    },
+    {
+        path: SINGLE_ACTOR,
+        Component: SingleActor,
     },
 ];

@@ -16,7 +16,6 @@ interface MoviesDisplayProps {
 
 const MoviesDisplay:FC<MoviesDisplayProps> = ({array, loading, error, title}) => {
     const navigate = useNavigate();
-
     const [search_value, setSearch_value] = useState<string>('');
     const [filtered_data, setFiltered_data] = useState<IMovie[]>([]);
 
@@ -36,7 +35,7 @@ const MoviesDisplay:FC<MoviesDisplayProps> = ({array, loading, error, title}) =>
             <Alert
                 style={{margin: 14}}
                 message={<span>Error</span>}
-                description={<span>Something went wrong when fetching your want to watch list</span>}
+                description={<span>Something went wrong when fetching your want list</span>}
                 type="error"
                 showIcon
             />
