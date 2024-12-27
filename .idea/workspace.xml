@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f985c1b-1b9e-4eaa-8b7d-e5a1e6bc57fb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/pages/Actor/SingleActor.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/declarete.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MoviesDisplay.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MoviesDisplay.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Movie/dep/MovieActors.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Movie/dep/MovieActors.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/type/Actors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/type/Actors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/const.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/const.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Actor/SingleActor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Actor/SingleActor.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,18 +18,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Nookons"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Nookons&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Nookons/mila-movies.git",
-    "accountId": "7daeb535-a3a6-4cc0-9795-d2bc9c15b589"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Nookons/mila-movies.git&quot;,
+    &quot;accountId&quot;: &quot;7daeb535-a3a6-4cc0-9795-d2bc9c15b589&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -107,7 +104,9 @@
       <updated>1734168528599</updated>
       <workItem from="1734168532763" duration="483000" />
       <workItem from="1734169047940" duration="12071000" />
-      <workItem from="1734910145488" duration="8297000" />
+      <workItem from="1734910145488" duration="8336000" />
+      <workItem from="1735330561666" duration="16000" />
+      <workItem from="1735331203792" duration="5472000" />
     </task>
     <servers />
   </component>
