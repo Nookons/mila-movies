@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import favoriteMovieReducer from './reducers/favoriteMovies';
 import watchLaterReducer from './reducers/watchLater';
 import watchedReducer from './reducers/watched';
+import languageSlice from './reducers/Language';
 
 const store = configureStore({
     reducer: {
         favorite_movies: favoriteMovieReducer,
         watch_later: watchLaterReducer,
         watched: watchedReducer,
+        language: languageSlice,
     }
 });
 

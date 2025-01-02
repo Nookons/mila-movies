@@ -10,7 +10,7 @@ h1,h2,h3,h4,h5,h6,p,article,li,a,span, button, input{
 body {
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow-x: hidden !important;
 }
 
 input {

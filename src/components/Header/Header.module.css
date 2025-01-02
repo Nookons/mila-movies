@@ -1,0 +1,31 @@
+
+.Main {
+    position: relative;
+    padding: 14px;
+    box-shadow: 2px 2px 4px rgba(0,0,0, 0.5);
+}
+
+.Scrolled {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 999;
+    background-color: #ffffff;
+    box-shadow: 2px 2px 4px rgba(0,0,0, 0.5);
+    padding: 14px;
+    animation: show_after_scroll;
+    animation-duration: 1s;
+}
+
+
+@keyframes show_after_scroll {
+    0% {
+        top: -250px;
+        opacity: 0;
+    }
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}

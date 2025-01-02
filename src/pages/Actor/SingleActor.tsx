@@ -5,9 +5,11 @@ import {Col, Descriptions, Divider, FloatButton, Image, Row, Space} from "antd";
 import {IActorDetails, IMovie_credits, IPersonImages, ITvShow} from "../../type/Actors";
 import {SINGLE_MOVIE} from "../../utils/const";
 import Title from "antd/es/typography/Title";
+import {useAppSelector} from "../../hooks/storeHooks";
 
 const SingleActor = () => {
     const navigate = useNavigate();
+    const language = useAppSelector(state => state.language.language);
     const [searchParams] = useSearchParams();
     const actor_id = searchParams.get('id');
 
@@ -17,7 +19,7 @@ const SingleActor = () => {
     const [tv_credits, setTv_credits] = useState<ITvShow | null>(null);
 
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/person/${actor_id}?language=en-EN`, TMBD_Options)
+        fetch(`https://api.themoviedb.org/3/person/${actor_id}?language=${language}-${language.toUpperCase()}`, TMBD_Options)
             .then(res => res.json())
             .then(res => setDetails(res))
             .catch(err => console.error(err));
@@ -27,16 +29,16 @@ const SingleActor = () => {
             .then(res => setImages(res))
             .catch(err => console.error(err));
 
-        fetch(`https://api.themoviedb.org/3/person/${actor_id}/movie_credits?language=ru-RU`, TMBD_Options)
+        fetch(`https://api.themoviedb.org/3/person/${actor_id}/movie_credits?language=${language}-${language.toUpperCase()}`, TMBD_Options)
             .then(res => res.json())
             .then(res => setMovie_credits(res))
             .catch(err => console.error(err));
 
-        fetch(`https://api.themoviedb.org/3/person/${actor_id}/tv_credits?language=ru-RU`, TMBD_Options)
+        fetch(`https://api.themoviedb.org/3/person/${actor_id}/tv_credits?language=${language}-${language.toUpperCase()}`, TMBD_Options)
             .then(res => res.json())
             .then(res => setTv_credits(res))
             .catch(err => console.error(err));
-    }, [actor_id]);
+    }, [actor_id, language]);
 
     if (!details || !images || !movie_credits || !tv_credits) {
         return null

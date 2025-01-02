@@ -16,6 +16,7 @@ const App = () => {
         dispatch(subscribeToWatched());
     }, [dispatch]);
 
+
     return (
         <>
             <Header />

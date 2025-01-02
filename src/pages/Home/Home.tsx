@@ -1,11 +1,6 @@
-import React from 'react';
-import SearchMovie from "./Search/SearchMovie";
+import React, {useEffect} from 'react';
 import {useAppSelector} from "../../hooks/storeHooks";
 import {Avatar, Badge, Flex, Segmented, Space, Tabs, TabsProps} from "antd";
-import MoviesSlider from "./MovieSlider/MoviesSlider";
-import PopularDisplay from "./Popular/PopularDisplay";
-import {useNavigate} from "react-router-dom";
-import {EyeOutlined, HomeOutlined, LikeOutlined, PlusOutlined, UserOutlined} from "@ant-design/icons";
 import Favorite from "../Favorite/Favorite";
 import HomeChild from "./HomeChild";
 import WatchLater from "../WatchLater/WatchLater";
@@ -15,9 +10,28 @@ const Home = () => {
     const {watch_later} = useAppSelector(state => state.watch_later)
     const {watched} = useAppSelector(state => state.watched)
 
-    const onChange = (key: string) => {
-        console.log(key);
-    };
+    useEffect(() => {
+        const offset = localStorage.getItem("scroll_offset");
+
+        if (offset && !isNaN(Number(offset)) && Number(offset) > 0) {
+            const checkHeightAndScroll = () => {
+                const pageHeight = document.documentElement.scrollHeight;
+
+                if (pageHeight > Number(offset)) {
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: Number(offset),
+                            behavior: 'smooth',
+                        });
+                    }, 250)
+                } else {
+                    requestAnimationFrame(checkHeightAndScroll);
+                }
+            };
+            checkHeightAndScroll();
+        }
+    }, []);
+
 
     const items: TabsProps['items'] = [
         {
@@ -42,7 +56,7 @@ const Home = () => {
         },
     ];
 
-    return <Tabs style={{margin: 14}} defaultActiveKey="1" items={items} onChange={onChange} />
+    return <Tabs style={{margin: 14}} defaultActiveKey="1" items={items} />
 };
 
 export default Home;
