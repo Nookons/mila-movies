@@ -1,20 +1,30 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Row, Space, Dropdown, Button, MenuProps} from "antd";
+import {Col, Row, Space, Dropdown, Button, MenuProps, Avatar} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {HOME_ROUTE, SIGN_IN} from "../../utils/const";
-import {GlobalOutlined, LoginOutlined} from "@ant-design/icons";
+import {
+    DownOutlined,
+    GlobalOutlined,
+    LoginOutlined,
+    LogoutOutlined,
+    SettingOutlined,
+    UserOutlined
+} from "@ant-design/icons";
 import Logo from '../../assets/Logo.svg';
 import {getLanguage, LanguageCookiesType, setLanguageCookies} from "../../utils/Cookies/Language";
-import {useAppDispatch} from "../../hooks/storeHooks";
+import {useAppDispatch, useAppSelector} from "../../hooks/storeHooks";
 import {setNewLanguage} from "../../store/reducers/Language";
 
 import styles from './Header.module.css';
+import {userLeave} from "../../store/reducers/User";
 
 const Header = () => {
     const navigate = useNavigate();
     const distpatch = useAppDispatch();
     const [language, setLanguage] = useState<LanguageCookiesType>(getLanguage());
     const [scrollPosition, setScrollPosition] = useState(0);
+
+    const user = useAppSelector(state => state.user.user)
 
     const handleLanguageChange = (newLanguage: LanguageCookiesType) => {
         setLanguage(newLanguage);  // Обновляем состояние языка
@@ -57,6 +67,40 @@ const Header = () => {
         },
     ];
 
+    const userLogOut = async () => {
+        distpatch(userLeave())
+    }
+
+    const items: MenuProps['items'] = [
+        {
+            key: '1',
+            label: <span>{user ? user.displayName : "unknown"}</span>,
+            disabled: true,
+        },
+        {
+            type: 'divider',
+        },
+        {
+            key: '2',
+            label: 'Profile',
+            icon: <UserOutlined />,
+            extra: '⌘P',
+        },
+        {
+            key: '3',
+            label: 'Settings',
+            icon: <SettingOutlined/>,
+            extra: '⌘S',
+        },
+        {
+            key: '4',
+            label: 'Logout',
+            onClick: userLogOut,
+            icon: <LogoutOutlined />,
+            extra: '⌘L',
+        },
+    ];
+
     return (
         <Row
             id={"Header"}
@@ -76,7 +120,15 @@ const Header = () => {
                             <GlobalOutlined/> {language}
                         </Button>
                     </Dropdown>
-                    <Button onClick={() => navigate(SIGN_IN)}><LoginOutlined/></Button>
+                    {!user
+                        ? <Button onClick={() => navigate(SIGN_IN)}><LoginOutlined/></Button>
+                        :
+                        <Dropdown menu={{items}}>
+                            <Button onClick={(e) => e.preventDefault()}>
+                                <UserOutlined />
+                            </Button>
+                        </Dropdown>
+                    }
                 </Space>
             </Col>
         </Row>

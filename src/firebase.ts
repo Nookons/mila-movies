@@ -1,8 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-import "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
+import { getAuth, GoogleAuthProvider } from "firebase/auth";  // Import directly from the modular SDK
 
 const firebaseConfig = {
     apiKey: "AIzaSyCbxeuJsp-KvP1RNYzzQZIkFfuVXSTsBAo",
@@ -14,6 +13,11 @@ const firebaseConfig = {
     measurementId: "G-Z3GBRL6L3L"
 };
 
+// Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
-export const analytics = getAnalytics(app);
+
+// Firebase services
+export const db = getFirestore(app);          // Firestore
+export const auth = getAuth(app);              // Authentication
+export const provider = new GoogleAuthProvider();  // Google Auth provider
+export const analytics = getAnalytics(app);    // Analytics

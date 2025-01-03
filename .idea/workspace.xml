@@ -5,31 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f985c1b-1b9e-4eaa-8b7d-e5a1e6bc57fb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Header/Header.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/User/SignIn/Login.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/User/SignIn/signIn.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/reducers/Language.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/Cookies/Language.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/VSE.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Home/Popular/PreviewModal.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/User/SignIn/SignInGoogle.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/store/reducers/User.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/type/User.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/Logo.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/Logo.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Footer/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer/Footer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/declarete.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/declarete.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useFetchMovieFull.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useMovieActors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useMovieActors.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Actor/SingleActor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Actor/SingleActor.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/firebase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Home/Popular/PopularDisplay.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/Popular/PopularDisplay.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Movie/Single.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Movie/Single.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/SignIn/SignIn.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/User/SignIn/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/User/SignIn/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/User/SignIn/signIn.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/User/SignIn/signIn.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/const.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/const.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,24 +46,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/TK Service/Desktop/Папка с папками/movies",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.start.executor": "Run",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "C:\\Users\\TK Service\\Desktop\\Папка с папками\\movies\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/TK Service/Desktop/Папка с папками/movies&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.start.executor&quot;: &quot;Run&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\TK Service\\Desktop\\Папка с папками\\movies\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -130,7 +117,8 @@
       <workItem from="1735330561666" duration="16000" />
       <workItem from="1735331203792" duration="5472000" />
       <workItem from="1735345605875" duration="51000" />
-      <workItem from="1735839750541" duration="13311000" />
+      <workItem from="1735839750541" duration="13351000" />
+      <workItem from="1735867306903" duration="7205000" />
     </task>
     <servers />
   </component>

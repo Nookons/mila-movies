@@ -3,6 +3,7 @@ import favoriteMovieReducer from './reducers/favoriteMovies';
 import watchLaterReducer from './reducers/watchLater';
 import watchedReducer from './reducers/watched';
 import languageSlice from './reducers/Language';
+import userSlice from './reducers/User';
 
 const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
         watch_later: watchLaterReducer,
         watched: watchedReducer,
         language: languageSlice,
+        user: userSlice,
     }
 });
 

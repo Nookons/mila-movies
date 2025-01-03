@@ -54,7 +54,7 @@ const Single = () => {
     }
 
     return (
-        <Row style={{ padding: 14, maxWidth: 1200, margin: "0 auto" }} gutter={[24, 4]}>
+        <Row style={{maxWidth: 1200, margin: "0 auto" }}>
             <Col xs={24} md={10} xl={8}>
                 <div style={{ position: "relative" }}>
                     <img
@@ -65,11 +65,11 @@ const Single = () => {
                     <MovieButtons current_movie={current_movie} />
                 </div>
             </Col>
-            <Col xs={24} md={14} xl={16}>
+            <Col style={{padding: "14px 14px"}} xs={24} md={14} xl={16}>
                 <MovieDescriptions current_movie={current_movie} />
             </Col>
 
-            <Col span={24}>
+            <Col style={{padding: "14px 14px"}} span={24}>
                 {movie_id && <Trailer movie_id={movie_id} />}
             </Col>
         </Row>
