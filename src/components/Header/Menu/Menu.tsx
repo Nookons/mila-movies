@@ -6,7 +6,6 @@ import Button from "antd/es/button";
 import {DownOutlined} from "@ant-design/icons";
 
 import styles from './Menu.module.css'
-import {text} from "node:stream/consumers";
 
 export interface IGenre {
     id: number;
@@ -46,17 +45,17 @@ const Menu = () => {
     }, [language]);
 
     return (
-        <Row style={{padding: 4}} gutter={[16, 16]}>
-            <Col span={24}>
+        <Row gutter={[4, 4]}>
+            <Col className={styles.Main_row} span={24}>
                 <Space>
                     <div className={styles.Sub_menu}>
-                        <Button type={"text"}>Movie list <DownOutlined/></Button>
+                        <Button type={"text"}>Movie<DownOutlined/></Button>
                         <Row className={styles.Sub_menu_wrapper} gutter={[4, 4]}>
                             {movie_list.map((movie) => {
 
                                 return (
                                     <Col xs={12} md={8} xl={4}>
-                                        <Button style={{textWrap: "wrap"}} type={"text"}>{movie.name}</Button>
+                                        <Button type={"link"}>{movie.name}</Button>
                                         <Divider style={{margin: 4}}/>
                                     </Col>
                                 )
@@ -64,18 +63,21 @@ const Menu = () => {
                         </Row>
                     </div>
                     <div className={styles.Sub_menu}>
-                        <Button type={"text"}>TV Shows <DownOutlined/></Button>
+                        <Button type={"text"}>Shows<DownOutlined/></Button>
                         <Row className={styles.Sub_menu_wrapper} gutter={[4, 4]}>
                             {tv_shows_list.map((movie) => {
 
                                 return (
                                     <Col xs={12} md={8} xl={4}>
-                                        <Button style={{textWrap: "wrap"}} type={"text"}>{movie.name}</Button>
+                                        <Button type={"link"}>{movie.name}</Button>
                                         <Divider style={{margin: 4}}/>
                                     </Col>
                                 )
                             })}
                         </Row>
+                    </div>
+                    <div className={styles.Sub_menu}>
+                        <Button type={"link"}>🔥 Top 100</Button>
                     </div>
                 </Space>
             </Col>

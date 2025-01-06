@@ -58,10 +58,10 @@ const PopularDisplay = () => {
     }
 
     return (
-        <div>
+        <div style={{width: "100%", margin: "0 auto"}}>
             <PreviewModal previewMovie={previewMovie}  open={isPreview} setPreview={setIsPreview}/>
 
-            <Row gutter={[16, 16]}>
+            <Row style={{padding: "14px 4px"}} gutter={[4, 4]}>
                 {movies_data?.results.map((movie, index) => {
 
                     const onPreviewClick = async () => {
@@ -73,9 +73,9 @@ const PopularDisplay = () => {
                         <Col
                             xs={12}      // На очень маленьких экранах (мобильных)
                             sm={12}      // На небольших экранах (планшеты)
-                            md={8}       // На средних экранах (ноутбуки)
+                            md={12}       // На средних экранах (ноутбуки)
                             lg={6}       // На больших экранах (десктопы)
-                            xl={4}       // На очень больших экранах
+                            xl={6}       // На очень больших экранах
                             key={index}
                             style={{position: "relative"}}
                         >

@@ -1,13 +1,16 @@
 
-.Sub_menu {
+.Main_row {
     position: relative;
+}
+
+.Sub_menu {
 }
 
 .Sub_menu_wrapper {
     position: absolute;
     top: 100%;
     left: 2px;
-    width: 80vw;
+    width: 95vw;
     background-color: #f3f3f3;
     z-index: 3;
     padding: 14px;

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Row, Space, Dropdown, Button, MenuProps, Avatar} from "antd";
+import {Col, Row, Space, Dropdown, Button, MenuProps, Avatar, Divider} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {HOME_ROUTE, SIGN_IN} from "../../utils/const";
 import {
@@ -163,6 +163,7 @@ const Header = () => {
                         }
                     </Space>
                 </Col>
+                <Divider style={{margin: 8}} dashed/>
                 <Col span={24}>
                     <Menu />
                 </Col>
