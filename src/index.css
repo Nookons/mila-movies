@@ -14,5 +14,9 @@ body {
 }
 
 input {
-    font-size: 16px;
+    font-size: 16px !important;
+    font-family: "Comfortaa", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
 }

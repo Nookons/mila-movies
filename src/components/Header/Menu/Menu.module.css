@@ -1,0 +1,33 @@
+
+.Sub_menu {
+    position: relative;
+}
+
+.Sub_menu_wrapper {
+    position: absolute;
+    top: 100%;
+    left: 2px;
+    width: 80vw;
+    background-color: #f3f3f3;
+    z-index: 3;
+    padding: 14px;
+    border-radius: 0 8px 8px 8px;
+    pointer-events: none;
+    opacity: 0;
+    transition: .3s all ease;
+}
+.Sub_menu_wrapper button {
+}
+
+.Sub_menu > button svg {
+    transition: .3s all ease;
+}
+
+.Sub_menu:hover > button svg {
+    transform: rotate(180deg);
+}
+
+.Sub_menu:hover > .Sub_menu_wrapper{
+    pointer-events: auto;
+    opacity: 1;
+}

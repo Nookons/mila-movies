@@ -17,15 +17,40 @@
     animation: show_after_scroll;
     animation-duration: 1s;
 }
+.Scrolled_hide {
+    position: fixed;
+    top: -250px;
+    right: 0;
+    left: 0;
+    z-index: 999;
+    background-color: #ffffff;
+    box-shadow: 2px 2px 4px rgba(0,0,0, 0.5);
+    padding: 14px;
+    animation: hide_second_header;
+    animation-duration: 1s;
+}
+
+@keyframes hide_second_header {
+    0% {
+        top: 0;
+        opacity: 1;
+    }
+    100% {
+        top: -250px;
+        opacity: 0;
+    }
+}
 
 
 @keyframes show_after_scroll {
     0% {
         top: -250px;
         opacity: 0;
+        display: none;
     }
     100% {
         top: 0;
+        display: flex;
         opacity: 1;
     }
 }

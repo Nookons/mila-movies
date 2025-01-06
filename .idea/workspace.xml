@@ -5,18 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f985c1b-1b9e-4eaa-8b7d-e5a1e6bc57fb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/pages/Home/Popular/PreviewModal.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/User/SignIn/SignInGoogle.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/reducers/User.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/type/User.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Header/Menu/Menu.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Header/Menu/Menu.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/firebase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Home/Popular/PopularDisplay.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/Popular/PopularDisplay.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Movie/Single.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Movie/Single.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/Home.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/User/SignIn/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/User/SignIn/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/User/SignIn/SignInGoogle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/User/SignIn/SignInGoogle.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/User/SignIn/signIn.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/User/SignIn/signIn.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +116,8 @@
       <workItem from="1735331203792" duration="5472000" />
       <workItem from="1735345605875" duration="51000" />
       <workItem from="1735839750541" duration="13351000" />
-      <workItem from="1735867306903" duration="7205000" />
+      <workItem from="1735867306903" duration="7252000" />
+      <workItem from="1736097211798" duration="12624000" />
     </task>
     <servers />
   </component>

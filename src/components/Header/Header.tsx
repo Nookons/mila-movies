@@ -17,6 +17,7 @@ import {setNewLanguage} from "../../store/reducers/Language";
 
 import styles from './Header.module.css';
 import {userLeave} from "../../store/reducers/User";
+import Menu from "./Menu/Menu";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -102,36 +103,71 @@ const Header = () => {
     ];
 
     return (
-        <Row
-            id={"Header"}
-            className={scrollPosition < 100 ? styles.Main : styles.Scrolled}
-            justify="space-between"
-        >
-            <Col span={12}>
-                <Space style={{cursor: "pointer"}} onClick={() => navigate(HOME_ROUTE)}>
-                    <img style={{maxWidth: 35}} src={Logo} alt="Logo"/>
-                    <span>Mila movies</span>
-                </Space>
-            </Col>
-            <Col>
-                <Space wrap={true}>
-                    <Dropdown menu={{items: items_lang}}>
-                        <Button onClick={(e) => e.preventDefault()}>
-                            <GlobalOutlined/> {language}
-                        </Button>
-                    </Dropdown>
-                    {!user
-                        ? <Button onClick={() => navigate(SIGN_IN)}><LoginOutlined/></Button>
-                        :
-                        <Dropdown menu={{items}}>
+        <>
+            <Row
+                id={"Header"}
+                className={scrollPosition > 100 ? styles.Scrolled : styles.Scrolled_hide}
+                justify="space-between"
+            >
+                <Col span={12}>
+                    <Space style={{cursor: "pointer"}} onClick={() => navigate(HOME_ROUTE)}>
+                        <img style={{maxWidth: 35}} src={Logo} alt="Logo"/>
+                        <span>Mila movies</span>
+                    </Space>
+                </Col>
+                <Col>
+                    <Space wrap={true}>
+                        <Dropdown menu={{items: items_lang}}>
                             <Button onClick={(e) => e.preventDefault()}>
-                                <UserOutlined />
+                                <GlobalOutlined/> {language}
                             </Button>
                         </Dropdown>
-                    }
-                </Space>
-            </Col>
-        </Row>
+                        {!user
+                            ? <Button onClick={() => navigate(SIGN_IN)}><LoginOutlined/></Button>
+                            :
+                            <Dropdown menu={{items}}>
+                                <Button onClick={(e) => e.preventDefault()}>
+                                    <UserOutlined />
+                                </Button>
+                            </Dropdown>
+                        }
+                    </Space>
+                </Col>
+            </Row>
+            <Row
+                id={"Header"}
+                className={styles.Main}
+                justify="space-between"
+            >
+                <Col span={12}>
+                    <Space style={{cursor: "pointer"}} onClick={() => navigate(HOME_ROUTE)}>
+                        <img style={{maxWidth: 35}} src={Logo} alt="Logo"/>
+                        <span>Mila movies</span>
+                    </Space>
+                </Col>
+                <Col>
+                    <Space wrap={true}>
+                        <Dropdown menu={{items: items_lang}}>
+                            <Button onClick={(e) => e.preventDefault()}>
+                                <GlobalOutlined/> {language}
+                            </Button>
+                        </Dropdown>
+                        {!user
+                            ? <Button onClick={() => navigate(SIGN_IN)}><LoginOutlined/></Button>
+                            :
+                            <Dropdown menu={{items}}>
+                                <Button onClick={(e) => e.preventDefault()}>
+                                    <UserOutlined />
+                                </Button>
+                            </Dropdown>
+                        }
+                    </Space>
+                </Col>
+                <Col span={24}>
+                    <Menu />
+                </Col>
+            </Row>
+        </>
     );
 };
 

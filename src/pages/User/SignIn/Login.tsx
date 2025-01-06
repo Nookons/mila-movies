@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import styles from './signIn.module.css';
-import {Col, Form, Input, message, Row, Space} from "antd";
+import {Avatar, Col, Form, Input, message, Row, Space} from "antd";
 import Button from "antd/es/button";
 import SignInGoogle from "./SignInGoogle";
 import {useForm} from "antd/es/form/Form";
 import {useAppSelector} from "../../../hooks/storeHooks";
 import {useNavigate} from "react-router-dom";
 import {HOME_ROUTE} from "../../../utils/const";
+import Password from "antd/es/input/Password";
+import logo from "../../../assets/Logo.svg"
 
 const Login = () => {
     const navigate = useNavigate();
@@ -28,7 +30,7 @@ const Login = () => {
             if (footerElement) {
                 const footerStyles = getComputedStyle(footerElement);
                 //const footerPadding = parseInt(footerStyles.paddingTop) + parseInt(footerStyles.paddingBottom);
-                setFooterHeight(footerElement.offsetHeight );
+                setFooterHeight(footerElement.offsetHeight);
             }
         };
 
@@ -55,43 +57,47 @@ const Login = () => {
 
 
     return (
-        <div style={{ height: `calc(100vh - ${headerHeight}px - ${footerHeight}px)` }} className={styles.Main}>
+        <div style={{height: `calc(94dvh - ${headerHeight}px - ${footerHeight}px)`}} className={styles.Main}>
             <Row className={styles.Wrapper}>
                 <Col span={24}>
                     <Form
                         style={{marginTop: 14}}
                         form={form}
                         name="basic"
-                        labelCol={{span: 8}}
-                        wrapperCol={{span: 16}}
+                        wrapperCol={{span: 24}}
                         layout="horizontal"
                         initialValues={{remember: true}}
                         onFinish={onFormFinish}
                         onFinishFailed={onFormFinishFailed}
                     >
+                        <Space>
+                            <Avatar src={logo} />
+                            <h3>Welcome to Mila movies</h3>
+                        </Space>
 
-                        <Form.Item label="User name" name="username">
+                        <Form.Item label={<span>User name</span>} name="username">
                             <Input/>
                         </Form.Item>
 
-                        <Form.Item label="Password" name="password">
-                            <Input/>
+                        <Form.Item label={<span>Password</span>} name="password">
+                            <Password/>
                         </Form.Item>
 
-                        <Form.Item wrapperCol={{offset: 8, span: 16}}>
-                            <Space>
+                        <Form.Item wrapperCol={{span: 24}}>
+                            <Space style={{width: "100%", justifyContent: "flex-end"}}>
                                 <Button type="primary" htmlType="submit">
-                                    Submit
+                                    Sign in
                                 </Button>
                                 <Button htmlType="button" onClick={onFormClearClick}>
-                                    Clear
+                                    Create new account
                                 </Button>
                             </Space>
                         </Form.Item>
                     </Form>
 
-                    <Space direction="vertical">
-                        <SignInGoogle />
+
+                    <Space style={{width: "100%"}} direction="vertical">
+                        <SignInGoogle/>
                     </Space>
                 </Col>
             </Row>
