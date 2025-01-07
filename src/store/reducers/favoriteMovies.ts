@@ -1,37 +1,35 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { IMovie } from "../../type/Movie";
-import { getFirestore, collection, onSnapshot, QuerySnapshot, DocumentData } from "firebase/firestore";
-import {db} from "../../firebase";
-
+import {collection, onSnapshot, QuerySnapshot, DocumentData, query, where} from "firebase/firestore";
+import { db } from "../../firebase";
+import { IFavorite } from "../../type/Favorite";
+import {IFirebaseUser} from "../../type/User";
 
 type ItemsState = {
-    favorite_movie: IMovie[];
+    favorite_movies: IFavorite | null;
     loading: boolean;
     error: string | undefined;
-    isLoaded: boolean;
 };
 
 const initialState: ItemsState = {
-    favorite_movie: [],
+    favorite_movies: null,
     loading: false,
     error: undefined,
-    isLoaded: false,
 };
 
 export const subscribeToFavoriteMovies = createAsyncThunk(
     'favoriteMovies/subscribeToFavoriteMovies',
-    async (_, { dispatch, rejectWithValue }) => {
+    async (user: IFirebaseUser, { dispatch, rejectWithValue }) => {
+        if (!user || !user.uid) {
+            return rejectWithValue("Пользователь не найден");
+        }
+
         try {
-            const moviesCollection = collection(db, "favorites");
+            const moviesCollection = query(collection(db, "favorites"), where("user", "==", user.uid));
 
             onSnapshot(moviesCollection, (snapshot: QuerySnapshot<DocumentData>) => {
-                const movies: IMovie[] = [];
                 snapshot.forEach((doc) => {
-                    movies.push(doc.data() as IMovie);
+                    dispatch(setFavoriteMovies(doc.data() as IFavorite));
                 });
-
-                // Обновляем состояние через action
-                dispatch(setFavoriteMovies(movies));
             });
         } catch (error) {
             return rejectWithValue("Не удалось получить любимые фильмы");
@@ -39,20 +37,24 @@ export const subscribeToFavoriteMovies = createAsyncThunk(
     }
 );
 
+
 const favoriteMovieSlice = createSlice({
     name: 'favoriteMovies',
     initialState,
     reducers: {
-        addToFavorite: (state, action: PayloadAction<IMovie>) => {
-            state.favorite_movie.push(action.payload);
+        addToFavorite: (state, action: PayloadAction<number>) => {
+            if (state.favorite_movies) {
+                state.favorite_movies.list.push(action.payload); // Add the movie to the list
+            }
         },
-        removeFromFavorite: (state, action: PayloadAction<string>) => {
-            state.favorite_movie = state.favorite_movie.filter(item => item.id.toString() !== action.payload);
+       removeFromFavorite: (state, action: PayloadAction<number>) => {
+            if (state.favorite_movies) {
+                state.favorite_movies.list = state.favorite_movies.list.filter(item => item !== action.payload);
+            }
         },
-        setFavoriteMovies: (state, action: PayloadAction<IMovie[]>) => {
-            state.favorite_movie = action.payload;
+        setFavoriteMovies: (state, action: PayloadAction<IFavorite>) => {
+            state.favorite_movies = action.payload;
             state.loading = false;
-            state.isLoaded = true;
         },
     },
     extraReducers: (builder) => {
@@ -68,6 +70,6 @@ const favoriteMovieSlice = createSlice({
     }
 });
 
-// Экспортируем actions и thunk
+// Exporting actions and reducer
 export const { addToFavorite, removeFromFavorite, setFavoriteMovies } = favoriteMovieSlice.actions;
 export default favoriteMovieSlice.reducer;

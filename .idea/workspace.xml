@@ -5,12 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f985c1b-1b9e-4eaa-8b7d-e5a1e6bc57fb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/pages/Genres/Genres.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/type/Favorite.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/Menu/Menu.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Menu/Menu.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Header/Menu/Menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Menu/Menu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Favorite/Favorite.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Favorite/Favorite.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home/HomeChild.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/HomeChild.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Home/Popular/PopularDisplay.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/Popular/PopularDisplay.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/User/SignIn/SignInGoogle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/User/SignIn/SignInGoogle.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home/Popular/PreviewModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home/Popular/PreviewModal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Movie/Single.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Movie/Single.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Movie/dep/MovieButtons.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Movie/dep/RuntimeModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/reducers/favoriteMovies.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/reducers/favoriteMovies.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/Movie.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Movie.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/const.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/const.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +129,7 @@
       <workItem from="1735867306903" duration="7252000" />
       <workItem from="1736097211798" duration="13237000" />
       <workItem from="1736182945539" duration="312000" />
-      <workItem from="1736183431111" duration="2090000" />
+      <workItem from="1736183431111" duration="11304000" />
     </task>
     <servers />
   </component>

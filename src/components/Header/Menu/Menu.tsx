@@ -6,6 +6,8 @@ import Button from "antd/es/button";
 import {DownOutlined} from "@ant-design/icons";
 
 import styles from './Menu.module.css'
+import {useNavigate} from "react-router-dom";
+import {GENRES} from "../../../utils/const";
 
 export interface IGenre {
     id: number;
@@ -13,6 +15,7 @@ export interface IGenre {
 }
 
 const Menu = () => {
+    const navigate = useNavigate();
     const language = useAppSelector(state => state.language.language)
 
     const [movie_list, setMovie_list] = useState<IGenre[]>([]);
@@ -55,7 +58,7 @@ const Menu = () => {
 
                                 return (
                                     <Col xs={12} md={8} xl={4}>
-                                        <Button type={"link"}>{movie.name}</Button>
+                                        <Button onClick={() => navigate(`${GENRES}?genre_id=${movie.id}`)} type={"link"}>{movie.name}</Button>
                                         <Divider style={{margin: 4}}/>
                                     </Col>
                                 )

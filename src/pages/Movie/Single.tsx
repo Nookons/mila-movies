@@ -3,7 +3,6 @@ import { useSearchParams } from "react-router-dom";
 import { Alert, Col, Row, Skeleton, message } from "antd";
 import Trailer from "./dep/Trailer";
 import MovieDescriptions from './dep/MovieDescriptions';
-import MovieButtons from "./dep/MovieButtons";
 import { IMovieFull } from "../../type/Movie";
 import { useAppSelector } from "../../hooks/storeHooks";
 import {TMBD_Options} from "../../utils/TMBDOptions";
@@ -62,7 +61,6 @@ const Single = () => {
                         src={`https://image.tmdb.org/t/p/w500${current_movie.poster_path}`}
                         alt={current_movie.title}
                     />
-                    <MovieButtons current_movie={current_movie} />
                 </div>
             </Col>
             <Col style={{padding: "14px 14px"}} xs={24} md={14} xl={16}>

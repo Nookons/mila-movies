@@ -9,7 +9,6 @@ import {useAppSelector} from "../../hooks/storeHooks";
 const HomeChild = () => {
     const navigate = useNavigate();
     const {watch_later, loading, error} = useAppSelector(state => state.watch_later)
-    const {favorite_movie} = useAppSelector(state => state.favorite_movies)
     const {watched} = useAppSelector(state => state.watched)
 
     return (

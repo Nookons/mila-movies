@@ -21,7 +21,7 @@ import {
     removeFavoriteToBase, removeWatchedToBase,
     removeWatchToBase
 } from "../../../utils/Movie";
-import {SINGLE_MOVIE} from "../../../utils/const";
+import {SIGN_IN_ROUTE, SINGLE_MOVIE} from "../../../utils/const";
 import {useNavigate} from "react-router-dom";
 
 interface PreviewModalProps {
@@ -32,17 +32,11 @@ interface PreviewModalProps {
 
 const PreviewModal: FC<PreviewModalProps> = ({open, setPreview, previewMovie}) => {
     const navigate = useNavigate();
-    const {favorite_movie} = useAppSelector(state => state.favorite_movies);
-    const {watch_later} = useAppSelector(state => state.watch_later);
-    const {watched} = useAppSelector(state => state.watched);
+    const user = useAppSelector(state => state.user.user)
 
     if (!previewMovie) {
         return null
     }
-
-    const isFavorite = favorite_movie.some(item => item.id === previewMovie.id);
-    const isWatchingLater = watch_later.some(item => item.id === previewMovie.id);
-    const isWatched = watched.some(item => item.id === previewMovie.id);
 
     const customIcons: Record<number, React.ReactNode> = {
         1: <FrownOutlined/>,
@@ -53,50 +47,31 @@ const PreviewModal: FC<PreviewModalProps> = ({open, setPreview, previewMovie}) =
     };
 
     const getClickType = async (type: string) => {
-        switch (type) {
-            case "favorite":
-                await addFavoriteToBase(previewMovie);
-                break;
-            case "unfavorite":
-                await removeFavoriteToBase(previewMovie.id);
-                break;
-            case "watch_later":
-                await addWatchToBase(previewMovie);
-                break;
-            case "unwatch_later":
-                await removeWatchToBase(previewMovie.id);
-                break;
-            case "watched":
-                await addWatchedToBase(previewMovie);
-                break;
-            case "unwatched":
-                await removeWatchedToBase(previewMovie.id);
-                break;
+        if (!user) {
+            navigate(SIGN_IN_ROUTE)
+            return
         }
+        await addFavoriteToBase(previewMovie, user);
+        console.log("test")
     };
 
     return (
         <Modal
             title={
-                    <span>{previewMovie.title}</span>
+                <span>{previewMovie.title}</span>
             }
             open={open}
             onCancel={() => setPreview(false)}
             footer={[
                 <ButtonGroup>
-                    <Button onClick={() => getClickType(isFavorite ? "unfavorite" : "favorite")} key={"favorite"} type={"text"}>{isFavorite
-                        ? <MehOutlined />
-                        : <HeartOutlined />
-                    }</Button>
-                    <Button onClick={() => getClickType(isWatchingLater ? "unwatch_later" : "watch_later")} key={"watch_later"} type={"text"}>{isWatchingLater
-                        ? <MinusOutlined />
-                        : <PlusOutlined />
-                    }</Button>
-                    <Button onClick={() => getClickType(isWatched ? "unwatched" : "watched")} key={"watched"} type={"text"}>{isWatched
-                        ? <EyeInvisibleOutlined />
-                        : <EyeOutlined />
-                    }</Button>
-                    <Button onClick={() => navigate(`${SINGLE_MOVIE}?id=${previewMovie.id.toString()}`)} style={{maxWidth: "100%"}} key={"go"} type={"primary"}>Go watch</Button>
+                    <Button onClick={() => getClickType("favorite")} key={"favorite"}
+                            type={"text"}><MehOutlined/></Button>
+                    <Button onClick={() => getClickType("watch_later")} key={"watch_later"}
+                            type={"text"}><MinusOutlined/></Button>
+                    <Button onClick={() => getClickType("watched")} key={"watched"}
+                            type={"text"}><EyeInvisibleOutlined/></Button>
+                    <Button onClick={() => navigate(`${SINGLE_MOVIE}?id=${previewMovie.id.toString()}`)}
+                            style={{maxWidth: "100%"}} key={"go"} type={"primary"}>Go watch</Button>
                 </ButtonGroup>,
             ]}
         >

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Col, Row, Space, Dropdown, Button, MenuProps, Avatar, Divider} from "antd";
 import {useNavigate, useSearchParams} from "react-router-dom";
-import {HOME_ROUTE, SIGN_IN} from "../../utils/const";
+import {FAVORITE_MOVIES, HOME_ROUTE, SIGN_IN} from "../../utils/const";
 import {
     DownOutlined,
     GlobalOutlined,
@@ -90,17 +90,27 @@ const Header = () => {
         {
             key: '3',
             label: 'Settings',
-            icon: <SettingOutlined/>,
+            icon: <SettingOutlined />,
             extra: '⌘S',
         },
+        ...(user ? [
+            {
+                key: '4',
+                label: 'Favorite movie',
+                icon: <SettingOutlined />,
+                onClick: () => navigate(`${FAVORITE_MOVIES}?uid=${user.uid}`),
+                extra: '⌘S',
+            }
+        ] : []),
         {
-            key: '4',
+            key: '5',
             label: 'Logout',
             onClick: userLogOut,
             icon: <LogoutOutlined />,
             extra: '⌘L',
         },
     ];
+
 
     return (
         <>

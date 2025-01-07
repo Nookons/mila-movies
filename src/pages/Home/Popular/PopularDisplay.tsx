@@ -29,12 +29,10 @@ import PreviewModal from "./PreviewModal";
 
 const PopularDisplay = () => {
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
     const [page, setPage] = useState<number>(Number(localStorage.getItem("page")) || 1);
     const [movies_data, setMovies_data] = useState<IMovieResponse | null>(null);
 
     const language = useAppSelector(state => state.language.language)
-
 
     const [isPreview, setIsPreview] = useState<boolean>(false);
     const [previewMovie, setPreviewMovie] = useState<IMovie | null>(null);
@@ -59,14 +57,14 @@ const PopularDisplay = () => {
 
     return (
         <div style={{width: "100%", margin: "0 auto"}}>
-            <PreviewModal previewMovie={previewMovie}  open={isPreview} setPreview={setIsPreview}/>
+            <PreviewModal previewMovie={previewMovie} open={isPreview} setPreview={setIsPreview}/>
 
             <Row style={{padding: "14px 4px"}} gutter={[4, 4]}>
                 {movies_data?.results.map((movie, index) => {
 
                     const onPreviewClick = async () => {
-                        await setPreviewMovie(movie);
-                        await setIsPreview(true)
+                        setPreviewMovie(movie);
+                        setIsPreview(true)
                     }
 
                     return (
