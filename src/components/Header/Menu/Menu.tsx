@@ -21,6 +21,9 @@ const Menu = () => {
     const [movie_list, setMovie_list] = useState<IGenre[]>([]);
     const [tv_shows_list, setTv_shows_list] = useState<IGenre[]>([]);
 
+    const [isMovieList, setIsMovieList] = useState<boolean>(false);
+    const [isTvList, setIsTvList] = useState<boolean>(false);
+
 
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/genre/movie/list?language=${language}`, TMBD_Options)
@@ -47,18 +50,36 @@ const Menu = () => {
             .catch(err => console.error(err));
     }, [language]);
 
+    const onMenuItemClick = () => {
+        setIsMovieList(false)
+        setIsTvList(false)
+    }
+
     return (
         <Row gutter={[4, 4]}>
             <Col className={styles.Main_row} span={24}>
                 <Space>
                     <div className={styles.Sub_menu}>
-                        <Button type={"text"}>Movie<DownOutlined/></Button>
-                        <Row className={styles.Sub_menu_wrapper} gutter={[4, 4]}>
+                        <Button
+                            type={"text"}
+                            onClick={() => setIsMovieList(!isMovieList)}
+                        >
+                            <span style={{
+                                fontWeight: isMovieList ? 800 : 400,
+                                color: isMovieList ? "#3143ff" : "black"
+                            }}>
+                                Movie
+                            </span>
+                            <DownOutlined style={{transform: `rotate(${isMovieList ? "180deg" : "0deg"})`}}/>
+                        </Button>
+                        <Row className={isMovieList ? styles.Sub_menu_wrapper_active : styles.Sub_menu_wrapper}
+                             gutter={[4, 4]}>
                             {movie_list.map((movie) => {
 
                                 return (
                                     <Col xs={12} md={8} xl={4}>
-                                        <Button onClick={() => navigate(`${GENRES}?genre_id=${movie.id}`)} type={"link"}>{movie.name}</Button>
+                                        <Button onClick={onMenuItemClick}
+                                                type={"link"}>{movie.name}</Button>
                                         <Divider style={{margin: 4}}/>
                                     </Col>
                                 )
@@ -66,13 +87,24 @@ const Menu = () => {
                         </Row>
                     </div>
                     <div className={styles.Sub_menu}>
-                        <Button type={"text"}>Shows<DownOutlined/></Button>
-                        <Row className={styles.Sub_menu_wrapper} gutter={[4, 4]}>
+                        <Button
+                            type={"text"}
+                            onClick={() => setIsTvList(!isTvList)}
+                        >
+                            <span style={{
+                                fontWeight: isTvList ? 800 : 400,
+                                color: isTvList ? "#3143ff" : "black"
+                            }}>
+                                Shows
+                            </span>
+                            <DownOutlined style={{transform: `rotate(${isTvList ? "180deg" : "0deg"})`}}/>
+                        </Button>
+                        <Row className={isTvList ? styles.Sub_menu_wrapper_active : styles.Sub_menu_wrapper} gutter={[4, 4]}>
                             {tv_shows_list.map((movie) => {
 
                                 return (
                                     <Col xs={12} md={8} xl={4}>
-                                        <Button type={"link"}>{movie.name}</Button>
+                                        <Button onClick={onMenuItemClick} type={"link"}>{movie.name}</Button>
                                         <Divider style={{margin: 4}}/>
                                     </Col>
                                 )
